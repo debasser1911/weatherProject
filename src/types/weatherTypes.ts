@@ -1,16 +1,16 @@
 export interface IWeatherData {
   name: string;
-  coord: {
+  coord?: {
     lon: string;
     lat: string;
   };
-  main: {
+  main?: {
     temp: number;
     feels_like: number;
   };
-  visibility: number;
-  wind: {
+  visibility?: number;
+  wind?: {
     speed: string;
   };
-  sys: { sunrise: number; sunset: number };
+  sys?: { sunrise: number; sunset: number };
 }
