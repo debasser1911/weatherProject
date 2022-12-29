@@ -27,6 +27,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
+<<<<<<< HEAD
     "extends": "react-app"
   },
   "browserslist": [
@@ -35,4 +36,23 @@
     "not ie <= 11",
     "not op_mini all"
   ]
+=======
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+>>>>>>> 49b2046eac47f6a42066a30fb6789c680817cee5
 }
