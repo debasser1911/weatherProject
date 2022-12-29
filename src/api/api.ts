@@ -1,12 +1,11 @@
-import axios from 'axios';
 import { IWeatherData } from '../types/weatherTypes';
-
-const client = axios.create();
+import { axiosInstance } from './client';
+import { METRIC_UNITS, WEATER_API_TOKEN } from './constants';
 
 export const fetchWeatherData = (location: string): Promise<IWeatherData> => {
-  return client
+  return axiosInstance
     .get(
-      `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=b0ce1fbd2b74865c3ef64d68aad23248`
+      `/data/2.5/weather?q=${location}&units=${METRIC_UNITS.METRIC}&appid=${WEATER_API_TOKEN}`
     )
     .then((res) => res.data);
 };
