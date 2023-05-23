@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
-import { weatherReducer } from './weatherReducer';
+import { combineReducers } from 'redux'
+import { weatherReducer } from './weatherReducer'
 
-export const rootReducer = combineReducers({ weatherReducer });
+export const rootReducer = combineReducers({ weatherReducer })
 
-export type RootState = ReturnType<typeof rootReducer>;
+export type RootState = ReturnType<typeof rootReducer>
 
-export default rootReducer;
+export default rootReducer

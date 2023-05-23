@@ -1,10 +1,10 @@
-import { ActionType } from 'typesafe-actions';
-import * as weather from './weatherActions';
+import { type ActionType } from 'typesafe-actions'
+import * as weather from './weatherActions'
 
 const rootActions = {
-  weather,
-};
+  weather
+}
 
-export type RootAction = ActionType<typeof rootActions>;
+export type RootAction = ActionType<typeof rootActions>
 
-export default rootActions;
+export default rootActions

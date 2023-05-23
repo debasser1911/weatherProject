@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchWeatherData } from '../api/api';
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchWeatherData } from '../api/api'
 // import { RootState } from '../store/rootReducer';
-import { weatherActions } from '../store/weatherActions';
-import { IWeatherData } from '../types/weatherTypes';
+import { weatherActions } from '../store/weatherActions'
+import { type IWeatherData } from '../types/weatherTypes'
 
-const WeatherPage = () => {
-  const dispatch = useDispatch();
+const WeatherPage = (): React.JSX.Element => {
+  const dispatch = useDispatch()
   const [weatherData, setWeatherDate] = useState<IWeatherData | undefined>(
     undefined
-  );
+  )
   // const weatherDataa = useSelector((weatherData: RootState) => weatherData);
 
   useEffect(() => {
-    fetchWeatherData('Kiev').then((res) => {
-      setWeatherDate(res);
-      dispatch(weatherActions.success(res));
-    });
-  }, [dispatch]);
+    fetchWeatherData('Kiev')
+      .then((res) => {
+        setWeatherDate(res)
+        dispatch(weatherActions.success(res))
+      })
+      .catch((err) => err)
+  }, [dispatch])
 
   return (
     <>
-      {weatherData && weatherData.sys && (
-        <div className='weather-page'>
+      {weatherData?.sys != null && (
+        <div className="weather-page">
           <button onClick={() => dispatch(weatherActions)}></button>
           <p>{JSON.stringify(weatherData)}</p>
           <ul>
@@ -43,7 +45,7 @@ const WeatherPage = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
-export default WeatherPage;
+export default WeatherPage
