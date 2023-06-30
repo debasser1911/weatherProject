@@ -7,12 +7,3 @@ export default configureStore({
   },
   devTools: true
 })
-
-export const setupStore = () => {
-  return configureStore({
-    reducer: {
-      weather: weatherReducer
-    },
-    devTools: true
-  })
-}
