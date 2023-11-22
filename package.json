@@ -48,6 +48,11 @@
     "eslint-plugin-react": "^7.32.2",
     "jest": "^27.5.1",
     "jest-dom": "^4.0.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.3.2"
+  },
+  "overrides": {
+    "react-scripts": {
+      "typescript": "^5"
+    }
   }
 }
