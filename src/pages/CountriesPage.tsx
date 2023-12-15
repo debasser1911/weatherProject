@@ -1,11 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { API_URL } from '../constants'
 
 const CountriesPage = (): React.JSX.Element => {
-  const [countriesData, setCountriesData] = useState<[] | undefined>([])
+  const [countriesData, setCountriesData] = useState<[]>([])
   useEffect(() => {
     axios
-      .get('https://restcountries.com/v3.1/all')
+      .get(API_URL)
       .then((res) => {
         setCountriesData(res.data)
       })
