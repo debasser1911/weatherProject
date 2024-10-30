@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { API_URL } from '../constants'
+import { API_URL } from '../api/constants'
 
 const CountriesPage = (): React.JSX.Element => {
   const [countriesData, setCountriesData] = useState<[]>([])

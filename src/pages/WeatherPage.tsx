@@ -23,12 +23,12 @@ const WeatherPage = (): React.JSX.Element => {
 
   return (
     <>
-      {weatherData?.sys != null && (
+      {((weatherData?.sys) != null) && (
         <div className="weather-page">
           <button onClick={() => dispatch(weatherActions)}></button>
           <p>{JSON.stringify(weatherData)}</p>
           <ul>
-            <li>City: {weatherData.name}</li>
+            <li data-testid='city-label'>City: {weatherData.name}</li>
             <li>Longtitude: {weatherData.coord?.lon}</li>
             <li>Latitude: {weatherData.coord?.lat}</li>
             <li>Feels like: {weatherData.main?.feels_like}</li>
