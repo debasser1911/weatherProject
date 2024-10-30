@@ -12,8 +12,10 @@ const WeatherPage = (): React.JSX.Element => {
   )
   // const weatherDataa = useSelector((weatherData: RootState) => weatherData);
 
+  const CITY = 'Kiev'
+
   useEffect(() => {
-    fetchWeatherData('Kiev')
+    fetchWeatherData(CITY)
       .then((res) => {
         setWeatherDate(res)
         dispatch(weatherActions.success(res))
