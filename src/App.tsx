@@ -1,15 +1,17 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, BrowserRouter } from 'react-router-dom'
 import WeatherPage from './pages/WeatherPage'
 import CountriesPage from './pages/CountriesPage'
 
 const App: React.FC = () => {
   return (
     <>
-      <Routes>
-        <Route path={'/'} element={<WeatherPage />}></Route>
-        <Route path={'/countries'} element={<CountriesPage />}></Route>
-      </Routes>
+      <BrowserRouter>
+        <Routes>
+          <Route path={'/'} element={<WeatherPage />}></Route>
+          <Route path={'/countries'} element={<CountriesPage />}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
