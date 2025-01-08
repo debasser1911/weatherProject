@@ -14,8 +14,8 @@ const initialState: WeatherState = {
   weatherData: {
     name: '',
     sys: {
-      sunrise: 1,
-      sunset: 1
+      sunrise: 0,
+      sunset: 0
     }
   },
   loading: false,
