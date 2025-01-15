@@ -1,15 +1,15 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
-import WeatherPage from './pages/WeatherPage'
-import CountriesPage from './pages/CountriesPage'
+import type React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import CountriesPage from './pages/CountriesPage';
+import WeatherPage from './pages/WeatherPage';
 
 const App: React.FC = () => {
   return (
-    <>
-      <Route path={'/'} element={<WeatherPage />}></Route>
-      <Route path={'/countries'} element={<CountriesPage />}></Route>
-    </>
-  )
-}
+    <Routes>
+      <Route path={'/'} element={<WeatherPage />} />
+      <Route path={'/countries'} element={<CountriesPage />} />
+    </Routes>
+  );
+};
 
-export default App
+export default App;
