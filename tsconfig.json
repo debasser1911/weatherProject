@@ -15,7 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["vitest/jsdom", "jest", "node"]
+    "types": ["vitest/jsdom", "node"]
   },
   "include": ["src"]
 }

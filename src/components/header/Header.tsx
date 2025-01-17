@@ -7,9 +7,9 @@ type Props = {
 
 const Header = (props: Props) => {
   return (
-    <div>
+    <header>
       <Link to="/countries">Countries page</Link>
-    </div>
+    </header>
   );
 };
 

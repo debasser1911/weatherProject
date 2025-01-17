@@ -1,7 +1,7 @@
 import type React from 'react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { fetchWeatherData } from '../api/api';
+import { UNITS, WEATHER_API_TOKEN } from '../api/constants';
 // import { RootState } from '../store/rootReducer';
 import { weatherActions } from '../store/weatherActions';
 import type { IWeatherData } from '../types/weatherTypes';
@@ -11,24 +11,30 @@ const WeatherPage = (): React.JSX.Element => {
   const [weatherData, setWeatherDate] = useState<IWeatherData | undefined>(
     undefined,
   );
-  // const weatherDataa = useSelector((weatherData: RootState) => weatherData);
 
-  const CITY = 'Kiev';
-
-  useEffect(() => {
-    fetchWeatherData(CITY)
+  const fetchWeather = (event: React.FormEvent): void => {
+    event.preventDefault();
+    const city = (event.target as HTMLFormElement & { city: { value: string } })
+      .city.value;
+    fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=${UNITS.METRIC}&appid=${WEATHER_API_TOKEN}`,
+    )
+      .then((res) => res.json())
       .then((res) => {
         setWeatherDate(res);
         dispatch(weatherActions.success(res));
       })
       .catch((err) => err);
-  }, [dispatch]);
+  };
 
   return (
     <>
+      <form action="" onSubmit={fetchWeather}>
+        <input type="text" name="city" />
+        <button type="submit">Get weather</button>
+      </form>
       {weatherData?.sys != null && (
         <div className="weather-page" data-testid="weather-page">
-          <button type="button" onClick={() => dispatch(weatherActions)} />
           <p>{JSON.stringify(weatherData)}</p>
           <ul>
             <li data-testid="city-label">City: {weatherData.name}</li>
