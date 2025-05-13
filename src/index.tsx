@@ -1,11 +1,11 @@
-import ReactDOM from 'react-dom';
-import './index.css';
-import React from 'react';
+import type React from 'react';
 import { createRoot } from 'react-dom/client';
-import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import store from './store/store';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import WeatherPage from './pages/WeatherPage';
+import CountriesPage from './pages/CountriesPage';
+import './index.css';
+import WeatherLayout from './WeatherLayout';
 
 const container = document.getElementById('root');
 if (!container) {
@@ -13,10 +13,23 @@ if (!container) {
 }
 const root = createRoot(container);
 
+const queryClient = new QueryClient()
+
+const App: React.FC = () => {
+  return (
+    <WeatherLayout>
+      <Routes>
+        <Route path={'/'} element={<WeatherPage />} />
+        <Route path={'/countries'} element={<CountriesPage />} />
+      </Routes>
+    </WeatherLayout>
+  );
+};
+
 root.render(
-  <Provider store={store}>
     <BrowserRouter>
+    <QueryClientProvider client={queryClient}>
       <App />
+    </QueryClientProvider>
     </BrowserRouter>
-  </Provider>,
 );

@@ -1,54 +1,57 @@
 import type React from 'react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { UNITS, WEATHER_API_TOKEN } from '../api/constants';
+
 // import { RootState } from '../store/rootReducer';
-import { weatherActions } from '../store/weatherActions';
 import type { IWeatherData } from '../types/weatherTypes';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { fetchWeatherData } from '../api/api';
+import { useForm } from 'react-hook-form';
 
 const WeatherPage = (): React.JSX.Element => {
   const dispatch = useDispatch();
-  const [weatherData, setWeatherDate] = useState<IWeatherData | undefined>(
-    undefined,
-  );
+  const ref = useRef<HTMLInputElement>(null);
+  const { handleSubmit, register } = useForm<{ city: string }>()
 
-  const fetchWeather = (event: React.FormEvent): void => {
-    event.preventDefault();
-    const city = (event.target as HTMLFormElement & { city: { value: string } })
-      .city.value;
-    fetch(
-      `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=${UNITS.METRIC}&appid=${WEATHER_API_TOKEN}`,
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        setWeatherDate(res);
-        dispatch(weatherActions.success(res));
-      })
-      .catch((err) => err);
-  };
+  const city = ref.current?.value;
+
+  const {data, error, refetch} = useQuery({
+    queryKey: ['weatherData', city],
+    queryFn: () => fetchWeatherData(city ?? ''),
+    enabled: false,
+    refetchOnWindowFocus: false,
+  });
+
+  console.log(city)
+
+  const { mutate } = useMutation({
+    mutationFn: (city: string) => fetchWeatherData(city),
+  })
 
   return (
     <>
-      <form action="" onSubmit={fetchWeather}>
-        <input type="text" name="city" />
+    <form action="\" onSubmit={handleSubmit((data) => mutate(data.city))}>
+        <input type="text" {...register('city')} />
         <button type="submit">Get weather</button>
-      </form>
-      {weatherData?.sys != null && (
+
+
+    </form>
+      {data?.sys != null && (
         <div className="weather-page" data-testid="weather-page">
-          <p>{JSON.stringify(weatherData)}</p>
+          <p>{JSON.stringify(data)}</p>
           <ul>
-            <li data-testid="city-label">City: {weatherData.name}</li>
-            <li>Longtitude: {weatherData.coord?.lon}</li>
-            <li>Latitude: {weatherData.coord?.lat}</li>
-            <li>Feels like: {weatherData.main?.feels_like}</li>
-            <li>Temperature: {weatherData.main?.temp}</li>
-            <li>Visibility: {weatherData.visibility}</li>
-            <li>Wind speed: {weatherData.wind?.speed}</li>
+            <li data-testid="city-label">City: {data?.name}</li>
+            <li>Longtitude: {data.coord?.lon}</li>
+            <li>Latitude: {data.coord?.lat}</li>
+            <li>Feels like: {data.main?.feels_like}</li>
+            <li>Temperature: {data.main?.temp}</li>
+            <li>Visibility: {data.visibility}</li>
+            <li>Wind speed: {data.wind?.speed}</li>
             <li>
-              Sunrise: {new Date(weatherData.sys.sunrise * 1000).toString()}
+              Sunrise: {new Date(data.sys.sunrise * 1000).toString()}
             </li>
             <li>
-              Sunset: {new Date(weatherData.sys.sunset * 1000).toString()}
+              Sunset: {new Date(data.sys.sunset * 1000).toString()}
             </li>
           </ul>
         </div>
