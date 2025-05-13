@@ -1,15 +1,10 @@
 import type React from 'react';
 import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-// import { RootState } from '../store/rootReducer';
-import type { IWeatherData } from '../types/weatherTypes';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchWeatherData } from '../api/api';
 import { useForm } from 'react-hook-form';
 
 const WeatherPage = (): React.JSX.Element => {
-  const dispatch = useDispatch();
   const ref = useRef<HTMLInputElement>(null);
   const { handleSubmit, register } = useForm<{ city: string }>()
 

@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import WeatherPage from './pages/WeatherPage';
 import CountriesPage from './pages/CountriesPage';
 import './index.css';
-import WeatherLayout from './WeatherLayout';
+import WeatherLayout from './Layout';
 
 const container = document.getElementById('root');
 if (!container) {
@@ -15,7 +15,7 @@ const root = createRoot(container);
 
 const queryClient = new QueryClient()
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   return (
     <WeatherLayout>
       <Routes>
