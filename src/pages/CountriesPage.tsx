@@ -18,7 +18,7 @@ const CountriesPage = (): React.JSX.Element => {
         {countriesData?.sort().map(
           (
             country: { name: { common: string } },
-            idx: number,
+            _idx: number,
           ): ReactElement => (
             <li key={`key-${country.name.common}`}>{country.name.common}</li>
           ),

@@ -1,36 +1,34 @@
+import { useMutation, useQuery } from '@tanstack/react-query';
 import type React from 'react';
-import { useRef, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetchWeatherData } from '../api/api';
+import { useRef } from 'react';
 import { useForm } from 'react-hook-form';
+import { fetchWeatherData } from '../api/api';
 
 const WeatherPage = (): React.JSX.Element => {
   const ref = useRef<HTMLInputElement>(null);
-  const { handleSubmit, register } = useForm<{ city: string }>()
+  const { handleSubmit, register } = useForm<{ city: string }>();
 
   const city = ref.current?.value;
 
-  const {data, error, refetch} = useQuery({
+  const { data, error, refetch } = useQuery({
     queryKey: ['weatherData', city],
     queryFn: () => fetchWeatherData(city ?? ''),
     enabled: false,
     refetchOnWindowFocus: false,
   });
 
-  console.log(city)
+  console.log(city);
 
   const { mutate } = useMutation({
     mutationFn: (city: string) => fetchWeatherData(city),
-  })
+  });
 
   return (
     <>
-    <form action="\" onSubmit={handleSubmit((data) => mutate(data.city))}>
+      <form action="\" onSubmit={handleSubmit((data) => mutate(data.city))}>
         <input type="text" {...register('city')} />
         <button type="submit">Get weather</button>
-
-
-    </form>
+      </form>
       {data?.sys != null && (
         <div className="weather-page" data-testid="weather-page">
           <p>{JSON.stringify(data)}</p>
@@ -42,12 +40,8 @@ const WeatherPage = (): React.JSX.Element => {
             <li>Temperature: {data.main?.temp}</li>
             <li>Visibility: {data.visibility}</li>
             <li>Wind speed: {data.wind?.speed}</li>
-            <li>
-              Sunrise: {new Date(data.sys.sunrise * 1000).toString()}
-            </li>
-            <li>
-              Sunset: {new Date(data.sys.sunset * 1000).toString()}
-            </li>
+            <li>Sunrise: {new Date(data.sys.sunrise * 1000).toString()}</li>
+            <li>Sunset: {new Date(data.sys.sunset * 1000).toString()}</li>
           </ul>
         </div>
       )}
